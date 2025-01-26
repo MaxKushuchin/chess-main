@@ -68,16 +68,20 @@ class GameState {
 
     // Update button hit detection to match new positions
     isOverOkButton(x, y) {
-        return this.phase === 'card-selection' &&
-               x > width - 220 && x < width - 130 &&
-               y > height - 160 && y < height - 130;
+        if (!this.currentCard || this.phase !== 'card-selection' || !this.currentCard.getState().buttons) return false;
+
+        const okButton = this.currentCard.getState().buttons[0];
+        return x > okButton.x && x < okButton.x + okButton.width &&
+               y > okButton.y && y < okButton.y + okButton.height;
     }
 
     isOverDeclineButton(x, y) {
-        return this.phase === 'card-selection' &&
-               x > width - 110 && x < width - 20 &&
-               y > height - 160 && y < height - 130;
+        if (!this.currentCard || this.phase !== 'card-selection' || !this.currentCard.getState().buttons) return false;
+        const declineButton = this.currentCard.getState().buttons[1];
+        return x > declineButton.x && x < declineButton.x + declineButton.width &&
+               y > declineButton.y && y < declineButton.y + declineButton.height;
     }
+    
     updateTileStates() {
         // Reset all tiles first
         this.board.resetTileStates();
