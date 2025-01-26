@@ -57,9 +57,14 @@ class GameController {
                     x: mouseX - this.dragOffset.x,
                     y: mouseY - this.dragOffset.y
                 };
+                
+                this.gameState.handlePieceSelection(tile);
+                this.gameState.updateTileStates(false); // Add this line
 
                 // Clear the piece from its current tile while dragging
                 tile.clear();
+
+
             }
         }
     }
@@ -74,6 +79,8 @@ class GameController {
     }
 
     mouseReleased(mouseX, mouseY) {
+        this.gameState.updateTileStates(true);
+
         if (!this.isDragging || this.gameState.phase !== 'normal') return;
 
         const targetX = Math.floor(mouseX / tileSize);
@@ -117,6 +124,8 @@ class GameController {
         this.selectedPiece = null;
         this.dragStartTile = null;
         this.dragPosition = { x: 0, y: 0 };
+
+        
     }
 
     // Separate drawing UI elements from piece drawing

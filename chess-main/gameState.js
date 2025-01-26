@@ -40,6 +40,16 @@ class GameState {
         const selectTarget = tile.occupyingPiece || tile;
         this.currentCard.toggleSelection(selectTarget);
     }
+    handlePieceSelection(tile) {
+        if (this.phase !== 'normal') return;
+
+        this.board.tiles.forEach(eachTile => {
+            if (tile.occupyingPiece.isValidMove(eachTile,this.board) || tile.occupyingPiece.isValidCapture(eachTile,this.board).isValid){
+                eachTile.state = 'selected';
+            }
+        });
+    } 
+
 
     executeCard() {
         if (!this.currentCard || this.phase !== 'card-selection') return;
@@ -81,11 +91,9 @@ class GameState {
         return x > declineButton.x && x < declineButton.x + declineButton.width &&
                y > declineButton.y && y < declineButton.y + declineButton.height;
     }
-    
-    updateTileStates() {
+    updateTileStates(reset = true) {
         // Reset all tiles first
-        this.board.resetTileStates();
-
+        if (reset) this.board.resetTileStates();
         // If there's an active card in selection phase, update tile states
         if (this.currentCard && this.phase === 'card-selection') {
             this.currentCard.determineSelectables();
