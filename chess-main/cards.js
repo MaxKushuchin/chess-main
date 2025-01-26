@@ -34,10 +34,10 @@ class Card {
         this.currentStage = 0;
 
         // Drawing variables
-        this.x = width - 220;
-        this.y = height - 120;
-        this.width = 200;
-        this.height = 100;
+        this.x = 810 + 10; // Adjust x position to be within the gray area
+        this.y = height - 280;
+        this.width = 150;
+        this.height = 250;
         this.angle = 0;
         this.color = color(255);
         this.image = 'example.png'; // Default image path
@@ -259,24 +259,26 @@ class Card {
             angle: this.angle,
             color: this.color,
             image: this.image,
-             buttons: [
+            buttons: [
                 {
                     x: this.x,
                     y: this.y - 40,
-                    width: 90,
+                    width: 70,
                     height: 30,
                     text: 'OK'
                 },
                 {
-                    x: this.x + 110,
+                    x: this.x + 80,
                     y: this.y - 40,
-                    width: 90,
+                    width: 70,
                     height: 30,
                     text: 'Decline'
                 }
-             ]
+            ]
         };
     }
+
+
 }
 
 
