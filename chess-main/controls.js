@@ -89,7 +89,7 @@ class GameController {
 
         let moveSuccessful = false;
 
-        if (targetTile && this.selectedPiece) {
+        if (targetTile && this.selectedPiece && targetTile !== this.dragStartTile) {
             // Check for valid captures first
             const captureResult = this.selectedPiece.isValidCapture(targetTile, this.board);
             if (captureResult.isValid) {
